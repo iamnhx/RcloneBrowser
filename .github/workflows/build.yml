@@ -59,7 +59,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
          name: linux
-         path: build/build/rclone-browser
+         path: build/build/*
          
   build_macos:
     name: macOS Build
@@ -84,4 +84,62 @@ jobs:
           name: macos
           path: build/build/*.zip
         
+  build_freebsd:
+    runs-on: macos-12
     
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Development Tools and Build Rclone Browser
+        uses: vmactions/freebsd_vm@v0
+        with:
+          prepare: |
+            sudo pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake -y
+            mkdir build
+            cd build
+            cmake ..
+            make
+            
+      - uses: actions/upload-artifact@v3
+        with:
+          name: freebsd
+          path: build/build/*
+          
+  build_openbsd:
+    runs-on: macos-12
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Development Tools and Build Rclone Browser
+        uses: vmactions/freebsd_vm@v0
+        with:
+          prepare: |
+            sudo pkg_add git cmake qt5 -y
+            mkdir build
+            cd build
+            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmak
+            make
+            
+      - uses: actions/upload-artifact@v3
+        with:
+          name: openbsd
+          path: build/build/*
+          
+  build_netbsd:
+    runs-on: macos-12
+    
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Development Tools and Build Rclone Browser
+        uses: vmactions/freebsd_vm@v0
+        with:
+          prepare: |
+            sudo pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia -y
+            mkdir build
+            cd build
+            cmake ..
+            make
+            
+      - uses: actions/upload-artifact@v3
+        with:
+          name: netbsd
+          path: build/build/*
