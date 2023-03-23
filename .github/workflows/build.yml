@@ -13,12 +13,12 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Development Tools
         run: |
-          choco install visualstudio2019community visualstudio2019-workload-nativedesktop cmake python38 qt5-default -y
+          choco install visualstudio2019community visualstudio2019-workload-nativedesktop cmake qt5-default -y
           curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
           refreshenv
-          python3.8 get-pip.py
+          python get-pip.py
           refreshenv
-          C:\Python38\Scripts\pip3.8.exe install py7zr lxml requests semantic-version
+          pip install py7zr lxml requests semantic-version
           mkdir C:\Qt
           pushd C:\Qt
           git clone https://github.com/engnr/qt-downloader.git
