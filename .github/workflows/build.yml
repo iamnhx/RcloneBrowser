@@ -93,9 +93,12 @@ jobs:
       - name: Install Development Tools and Build Rclone Browser
         uses: vmactions/freebsd-vm@v0
         with:
+          mem: 4096
           prepare: |
             env ASSUME_ALWAYS_YES=YES pkg update -f
             env ASSUME_ALWAYS_YES=YES pkg install -y git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake
+            pwd
+            cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
             cmake ..
@@ -115,8 +118,11 @@ jobs:
       - name: Install Development Tools and Build Rclone Browser
         uses: vmactions/openbsd-vm@v0
         with:
+          mem: 4096
           prepare: |
             pkg_add -vv git cmake qt5
+            pwd
+            cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
             cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmake
@@ -136,8 +142,11 @@ jobs:
       - name: Install Development Tools and Build Rclone Browser
         uses: vmactions/netbsd-vm@v0
         with:
+          mem: 4096
           prepare: |
             /usr/sbin/pkg_add -vv git cmake qt5-qtdeclarative qt5-qtmultimedia -y
+            pwd
+            cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
             cmake ..
