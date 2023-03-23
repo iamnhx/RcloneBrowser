@@ -132,6 +132,12 @@ jobs:
       - name: Get short commit
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
         
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: ${{ env.SHORT_SHA }}
+          tag_exists_error: false
+          
       - uses: ncipollo/release-action@v1
         with:
           artifacts: "/tmp/artifacts/*.zip"
