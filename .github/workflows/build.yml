@@ -38,13 +38,10 @@ jobs:
           cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_PREFIX_PATH=C:\Qt\5.15.2\msvc2019_64 .. 
           cmake --build . --config Release
           C:\Qt\5.15.2\msvc2019_64\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
-          ls
-          ls .\build
-          ls .\build\Release
       - uses: actions/upload-artifact@v3
         with:
           name: windows
-          path: .\build\Release\RcloneBrowser.exe
+          path: build\build\Release\*
           
   build_linux:
     name: Linux Build
@@ -151,7 +148,7 @@ jobs:
           prepare: |
             /usr/sbin/pkg_add -vv pkgin
             pkgin update
-            pkgin -Vy install git cmake qt5-qtdeclarative
+            pkgin -Vy install git cmake qt5-qtdeclarative MesaLib
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
