@@ -23,7 +23,7 @@ jobs:
           pushd C:\Qt
           git clone https://github.com/engnr/qt-downloader.git
           mv qt-downloader/qt-downloader .\qtd
-          rm -f qt-downloader
+          Remove-Item -Recurse -Force qt-downloader
           python qtd windows desktop 5.15.2 win64_msvc2019_64
           popd
           
@@ -34,7 +34,7 @@ jobs:
           C:\Qt\5.15.2\msvc2019_64\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
       - uses: actions/upload-artifact@v3
         with:
-          name: Rclone Browser (Windows)
+          name: windows
           path: .\build\Release\RcloneBrowser.exe
           
   build_linux:
@@ -56,7 +56,7 @@ jobs:
           
       - uses: actions/upload-artifact@v3
         with:
-         name: Rclone Browser (Linux)
+         name: linux
          path: build/build/rclone-browser
          
   build_macos:
@@ -79,7 +79,7 @@ jobs:
           zip -r -0 Rclone\ Browser.zip Rclone\ Browser.app
       - uses: actions/upload-artifact@v3
         with:
-          name: Rclone Browser (macOS)
+          name: macos
           path: build/build/*.zip
         
     
