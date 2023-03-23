@@ -40,7 +40,7 @@ jobs:
           cmake ..
           make -j $(nproc)
           ### TODO: Upload the artifact when we know where it lives
-          ls
+          ls build
          
   build_macos:
     name: macOS Build
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Development Tools
         run: brew install git cmake rclone qt5
-      - name: 
+      - name: Build Rclone Browser
         run: |
           mkdir build
           cd build
