@@ -126,7 +126,7 @@ jobs:
       - name: Compress artifacts
         run: |
           pushd /tmp/artifacts
-          for i in *;do zip -r -0 $i $i.zip;done
+          for i in *;do zip -r -0 $i.zip $i;done
           popd
           
       - name: Get short commit
