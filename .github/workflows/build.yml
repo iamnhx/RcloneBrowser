@@ -94,7 +94,8 @@ jobs:
         uses: vmactions/freebsd-vm@v0
         with:
           prepare: |
-            pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake -y
+            env ASSUME_ALWAYS_YES=YES pkg update -f
+            env ASSUME_ALWAYS_YES=YES pkg install -y git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake
             mkdir build
             cd build
             cmake ..
@@ -115,10 +116,10 @@ jobs:
         uses: vmactions/openbsd-vm@v0
         with:
           prepare: |
-            pkg_add git cmake qt5 -y
+            pkg_add -vv git cmake qt5
             mkdir build
             cd build
-            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmak
+            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmake
             make
             
       - uses: actions/upload-artifact@v3
@@ -136,7 +137,7 @@ jobs:
         uses: vmactions/netbsd-vm@v0
         with:
           prepare: |
-            pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia -y
+            /usr/sbin/pkg_add -vv git cmake qt5-qtdeclarative qt5-qtmultimedia -y
             mkdir build
             cd build
             cmake ..
