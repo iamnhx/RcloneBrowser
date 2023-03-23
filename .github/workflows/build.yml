@@ -138,6 +138,7 @@ jobs:
   create_release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
+    needs: [build_windows, build_linux, build_macos, build_freebsd, build_openbsd]
     
     steps:
       - name: Create artifact directory
