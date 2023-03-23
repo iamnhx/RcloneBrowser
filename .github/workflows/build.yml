@@ -12,12 +12,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Development Tools
-        run: choco install visualstudio2019community visualstudio2019-workload-nativedesktop cmake qt5-default -y 
+        run: |
+          choco install visualstudio2019community visualstudio2019-workload-nativedesktop cmake python38 qt5-default -y
+          curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+          refreshenv
+          python3.8 get-pip.py
+          refreshenv
+          C:\Python38\Scripts\pip3.8.exe install py7zr lxml requests semantic-version
+          mkdir C:\Qt
+          pushd C:\Qt
+          git clone https://github.com/engnr/qt-downloader.git
+          cd qt-downloader
+          python3.8 qt-downloader windows desktop 5.15.2 win64_msvc2019_64
+          popd
+          
       - name: Build Rclone Browser
         run: |
-          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_PREFIX_PATH=C:\Qt\5.15.2 .. 
+          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_PREFIX_PATH=C:\Qt\5.15.2\msvc2019_64 .. 
           cmake --build . --config Release
-          C:\Qt\5.15.2\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
+          C:\Qt\5.15.2\msvc2019_64\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
       - uses: actions/upload-artifact@v3
         with:
           name: Rclone Browser (Windows)
