@@ -148,7 +148,7 @@ jobs:
           prepare: |
             /usr/sbin/pkg_add -vv pkgin
             pkgin update
-            pkgin -Vy install git cmake qt5-qtdeclarative MesaLib
+            pkgin -Vy install git cmake qt5-qtdeclarative graphics/MesaLib
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
