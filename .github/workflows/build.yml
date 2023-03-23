@@ -134,3 +134,34 @@ jobs:
         with:
           name: openbsd
           path: build/build/*
+
+  create_release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Create artifact directory
+        run: mkdir /tmp/artifacts
+      - uses: actions/download-artifact@v3
+        with:
+          path: /tmp/artifacts
+      - name: Compress artifacts
+        run: |
+          pushd /tmp/artifacts
+          for i in *;do zip -r -0 $i $i.zip;done
+          popd
+          
+      - name: Get short commit
+        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        
+      - uses: ncipollo/release-action@v1
+        with:
+          artifacts: "/tmp/artifacts/*.zip"
+          name: Rclone Browser Autobuild For Commit ${{ env.SHORT_SHA }}
+          omitBody: true
+          generateReleaseNotes: true
+          commit: ${{ env.SHORT_SHA }}
+          prerelease: true
+          skipIfReleaseExists: true
+          tag: ${{ env.SHORT_SHA }}
+        
