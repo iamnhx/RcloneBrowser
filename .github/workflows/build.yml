@@ -101,7 +101,6 @@ jobs:
           prepare: |
             env ASSUME_ALWAYS_YES=YES pkg update -f
             env ASSUME_ALWAYS_YES=YES pkg install -y git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake
-            pwd
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
@@ -125,7 +124,6 @@ jobs:
           mem: 4096
           prepare: |
             pkg_add -vv git cmake qt5
-            pwd
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
@@ -148,12 +146,13 @@ jobs:
         with:
           mem: 4096
           prepare: |
-            /usr/sbin/pkg_add -vv git cmake qt5-*
-            pwd
+            /usr/sbin/pkg_add -vv pkgin
+            pkgin update
+            pkgin install -V -y git cmake qt5-qtdeclarative
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
-            cmake ..
+            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/pkg/qt5
             make
             
       - uses: actions/upload-artifact@v3
