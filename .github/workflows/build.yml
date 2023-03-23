@@ -134,28 +134,3 @@ jobs:
         with:
           name: openbsd
           path: build/build/*
-          
-  build_netbsd:
-    name: NetBSD Build
-    runs-on: macos-12
-    
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Development Tools and Build Rclone Browser
-        uses: vmactions/netbsd-vm@v0
-        with:
-          mem: 4096
-          prepare: |
-            /usr/sbin/pkg_add -vv pkgin
-            pkgin update
-            pkgin -Vy install git cmake qt5-qtdeclarative qt5-qtmultimedia py39-OpenGL-3.1.5nb4
-            cd work/RcloneBrowser/RcloneBrowser
-            mkdir build
-            cd build
-            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/pkg/qt5
-            make
-            
-      - uses: actions/upload-artifact@v3
-        with:
-          name: netbsd
-          path: build/build/*
