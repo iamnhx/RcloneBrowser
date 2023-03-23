@@ -15,12 +15,12 @@ jobs:
         run: choco install visualstudio2019community visualstudio2019-workload-nativedesktop cmake qt5-default -y 
       - name: Build Rclone Browser
         run: |
-          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_PREFIX_PATH=c:\Qt\5.15.2\msvc2017_64 .. 
+          cmake -G "Visual Studio 16 2019" -A x64 -DCMAKE_CONFIGURATION_TYPES="Release" -DCMAKE_PREFIX_PATH=C:\Qt\5.15.2 .. 
           cmake --build . --config Release
-          C:\Qt\5.15.2\msvc2017_64\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
+          C:\Qt\5.15.2\bin\windeployqt.exe --no-translations --no-angle --no-compiler-runtime --no-svg ".\build\Release\RcloneBrowser.exe"
       - uses: actions/upload-artifact@v3
         with:
-          name: RcloneBrowser.exe
+          name: Rclone Browser (Windows)
           path: .\build\Release\RcloneBrowser.exe
           
   build_linux:
@@ -39,8 +39,11 @@ jobs:
           cd build
           cmake ..
           make -j $(nproc)
-          ### TODO: Upload the artifact when we know where it lives
-          ls build
+          
+      - uses: actions/upload-artifact@v3
+        with:
+         name: Rclone Browser (Linux)
+         path: build/build/rclone-browser
          
   build_macos:
     name: macOS Build
