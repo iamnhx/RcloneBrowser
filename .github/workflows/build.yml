@@ -91,7 +91,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Development Tools and Build Rclone Browser
-        uses: vmactions/freebsd_vm@v0
+        uses: vmactions/freebsd-vm@v0
         with:
           prepare: |
             sudo pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake -y
@@ -112,7 +112,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Development Tools and Build Rclone Browser
-        uses: vmactions/freebsd_vm@v0
+        uses: vmactions/openbsd-vm@v0
         with:
           prepare: |
             sudo pkg_add git cmake qt5 -y
@@ -133,7 +133,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Development Tools and Build Rclone Browser
-        uses: vmactions/freebsd_vm@v0
+        uses: vmactions/netbsd-vm@v0
         with:
           prepare: |
             sudo pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia -y
