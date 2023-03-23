@@ -148,7 +148,7 @@ jobs:
         with:
           mem: 4096
           prepare: |
-            /usr/sbin/pkg_add -vv git cmake qt5-qtdeclarative qt5-qtmultimedia -y
+            /usr/sbin/pkg_add -vv git cmake qt5-*
             pwd
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
