@@ -148,7 +148,7 @@ jobs:
           prepare: |
             /usr/sbin/pkg_add -vv pkgin
             pkgin update
-            pkgin install -V -y git cmake qt5-qtdeclarative
+            pkgin -Vy install git cmake qt5-qtdeclarative
             cd work/RcloneBrowser/RcloneBrowser
             mkdir build
             cd build
