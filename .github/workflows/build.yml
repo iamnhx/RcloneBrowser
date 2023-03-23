@@ -111,34 +111,11 @@ jobs:
         with:
           name: freebsd
           path: build/build/*
-          
-  build_openbsd:
-    name: OpenBSD Build
-    runs-on: macos-12
-    
-    steps:
-      - uses: actions/checkout@v3
-      - name: Install Development Tools and Build Rclone Browser
-        uses: vmactions/openbsd-vm@v0
-        with:
-          mem: 4096
-          prepare: |
-            pkg_add -vv git cmake qt5
-            cd work/RcloneBrowser/RcloneBrowser
-            mkdir build
-            cd build
-            cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmake
-            make
-            
-      - uses: actions/upload-artifact@v3
-        with:
-          name: openbsd
-          path: build/build/*
 
   create_release:
     name: Create GitHub Release
     runs-on: ubuntu-latest
-    needs: [build_windows, build_linux, build_macos, build_freebsd, build_openbsd]
+    needs: [build_windows, build_linux, build_macos, build_freebsd]
     
     steps:
       - name: Create artifact directory
