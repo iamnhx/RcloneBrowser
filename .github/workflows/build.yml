@@ -94,7 +94,7 @@ jobs:
         uses: vmactions/freebsd-vm@v0
         with:
           prepare: |
-            sudo pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake -y
+            pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake -y
             mkdir build
             cd build
             cmake ..
@@ -115,7 +115,7 @@ jobs:
         uses: vmactions/openbsd-vm@v0
         with:
           prepare: |
-            sudo pkg_add git cmake qt5 -y
+            pkg_add git cmake qt5 -y
             mkdir build
             cd build
             cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmak
@@ -136,7 +136,7 @@ jobs:
         uses: vmactions/netbsd-vm@v0
         with:
           prepare: |
-            sudo pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia -y
+            pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia -y
             mkdir build
             cd build
             cmake ..
