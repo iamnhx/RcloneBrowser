@@ -22,8 +22,9 @@ jobs:
           mkdir C:\Qt
           pushd C:\Qt
           git clone https://github.com/engnr/qt-downloader.git
-          cd qt-downloader
-          python qt-downloader windows desktop 5.15.2 win64_msvc2019_64
+          mv qt-downloader/qt-downloader .\qtd
+          rm -f qt-downloader
+          python qtd windows desktop 5.15.2 win64_msvc2019_64
           popd
           
       - name: Build Rclone Browser
