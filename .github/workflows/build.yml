@@ -135,7 +135,7 @@ jobs:
         
       - uses: rickstaa/action-create-tag@v1
         with:
-          tag: ${{ env.SHORT_SHA }}
+          tag: release-${{ env.SHORT_SHA }}
           tag_exists_error: false
           
       - uses: ncipollo/release-action@v1
@@ -144,8 +144,7 @@ jobs:
           name: Rclone Browser Autobuild For Commit ${{ env.SHORT_SHA }}
           omitBody: true
           generateReleaseNotes: true
-          commit: ${{ env.SHORT_SHA }}
           prerelease: true
           skipIfReleaseExists: true
-          tag: ${{ env.SHORT_SHA }}
+          tag: release-${{ env.SHORT_SHA }}
         
