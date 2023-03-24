@@ -118,6 +118,7 @@ jobs:
     needs: [build_windows, build_linux, build_macos, build_freebsd]
     
     steps:
+      - uses: actions/checkout@v3
       - name: Create artifact directory
         run: mkdir /tmp/artifacts
       - uses: actions/download-artifact@v3
@@ -133,7 +134,6 @@ jobs:
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
         
       - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
         with:
           tag: ${{ env.SHORT_SHA }}
           tag_exists_error: false
