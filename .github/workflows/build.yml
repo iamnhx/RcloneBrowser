@@ -82,11 +82,10 @@ jobs:
           cd build
           /usr/local/opt/qt@5/bin/macdeployqt rclone-browser.app -executable="rclone-browser.app/Contents/MacOS/rclone-browser" -qmldir=../src/
           mv rclone-browser.app Rclone\ Browser.app
-          zip -r -0 Rclone\ Browser.zip Rclone\ Browser.app
       - uses: actions/upload-artifact@v3
         with:
           name: macos
-          path: build/build/*.zip
+          path: build/build/*
         
   build_freebsd:
     name: FreeBSD Build
