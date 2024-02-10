@@ -119,21 +119,6 @@ To make life easier when using AppImages on Linux, you can use [AppImageLauncher
 
 For all released binaries file with hashes signed with my [PGP key](https://github.com/kapitainsky/RcloneBrowser/wiki/PGP-key) is provided. It allows to verify that provided binaries were created by myself (authenticity) and are unchanged (integrity). If you would like to have properly signed releases with code signing certificates please see note at the end of this section.
 
-<<<<<<< HEAD
-More and more operating systems include Rclone Browser in their offical distribution channels. You can check availibility [here](https://repology.org/project/rclone-browser/packages).
-
-ArchLinux users can install latest release from AUR repository: [rclone-browser][7].
-
-Fedora package is now available from [Fedora packages](https://apps.fedoraproject.org/packages/rclone-browser) - simply run `sudo dnf install rclone-browser`
-
-FreeBSD has its version available from [freshports](https://www.freshports.org/net/rclone-browser) website.
-
-And if you would like to run it directly on your NAS (e.g. Synology or QNAP) there is docker version provided by @romancin - https://github.com/romancin/rclonebrowser-docker
-
-=======
->>>>>>> test2
-*Note: For Windows and macOS it would be much nicer (to avoid pop ups about unknown software origin) to properly sign released packages with code signing certificates however it does not come free even for open source software. I looked at it and it seems that to get keys for both systems for the next three years would cost about $500 (3x$99 for [Apple developer account](https://developer.apple.com/support/purchase-activation/) and $200 for cheapest Comodo [code signing certificate](https://comodosslstore.com/uk/code-signing). I am not prepared to budget it as I do this only as a hobby and I am entirely happy with this software as it is. If Rclone Browser users think that properly signed software would be beneficial for them they can [chip in](https://www.paypal.me/kapitainsky) some cash for it. If I raise required amount I will get keys. If not I will give money to some charity.*
-
 Why AppImage only for Linux
 ----------------------------
 Starting with version 1.7.0 Linux binaries are only available in [AppImage](https://appimage.org/) format. Some explanation on this... 
@@ -172,7 +157,7 @@ Build instructions
     *   **RHEL/CentOS**: `sudo yum -y install git gcc-c++ cmake make qt5-qtdeclarative qt5-qtmultimedia-devel`
     *   **Fedora**: `sudo dnf -y install git g++ cmake make qt5-qtdeclarative-devel qt5-qtmultimedia-devel`
     *   **Arch/Manjaro**: `sudo pacman -Sy --noconfirm --needed git gcc cmake make qt5-declarative qt5-multimedia`
-2.  Clone source code from this repo `git clone https://github.com/kapitainsky/RcloneBrowser.git`
+2.  Clone source code from this repo `git clone https://github.com/iamnhx/RcloneBrowser.git`
 3.  Go to source folder `cd RcloneBrowser`
 4.  Create new build folder - `mkdir build && cd build`
 5.  Run `cmake ..` from build folder to create makefile
@@ -181,7 +166,7 @@ Build instructions
 
 ### FreeBSD
 1.  Install dependencies `sudo pkg install git cmake qt5-buildtools qt5-declarative qt5-multimedia qt5-qmake`
-2.  Clone source code from this repo `git clone https://github.com/kapitainsky/RcloneBrowser.git`
+2.  Clone source code from this repo `git clone https://github.com/iamnhx/RcloneBrowser.git`
 3.  Go to source folder `cd RcloneBrowser`
 4.  Create new build folder - `mkdir build && cd build`
 5.  Run `cmake ..` from build folder to create makefile
@@ -192,7 +177,7 @@ Build instructions
 
 ### OpenBSD
 1.  Install dependencies `sudo pkg_add git cmake qt5`
-2.  Clone source code from this repo `git clone https://github.com/kapitainsky/RcloneBrowser.git`
+2.  Clone source code from this repo `git clone https://github.com/iamnhx/RcloneBrowser.git`
 3.  Go to source folder `cd RcloneBrowser`
 4.  Create new build folder - `mkdir build && cd build`
 5.  Run `cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/lib/qt5/cmake` from build folder to create makefile
@@ -203,7 +188,7 @@ Build instructions
 
 ### NetBSD
 1.  Install dependencies `sudo pkgin install git cmake qt5-qtdeclarative qt5-qtmultimedia`
-2.  Clone source code from this repo `git clone https://github.com/kapitainsky/RcloneBrowser.git`
+2.  Clone source code from this repo `git clone https://github.com/iamnhx/RcloneBrowser.git`
 3.  Go to source folder `cd RcloneBrowser`
 4.  Create new build folder - `mkdir build && cd build`
 5.  Run `cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/pkg/qt5` from build folder to create makefile
@@ -216,13 +201,14 @@ Build instructions
 1.  If you don't have [Homebrew](https://brew.sh/) yet install it `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 2.  You might be asked to install xcode command line tools - do it. This is actuall macOS SDK, headers, and build tools. You don't need full xcode IDE.
 3.  Install dependencies `brew install git cmake rclone qt5`
-4.  Clone source code from this repo `git clone https://github.com/kapitainsky/RcloneBrowser.git`
+4.  Clone source code from this repo `git clone https://github.com/iamnhx/RcloneBrowser.git`
 5.  Go to source folder `cd RcloneBrowser`
 6.  Create new build folder - `mkdir build && cd build`
-7.  Run `cmake .. -DCMAKE_PREFIX_PATH:PATH=/usr/local/opt/qt` from build folder to create makefile
-8.  Run `make` from build folder to create binary
-9.  Go to yet another newly created build folder `cd build`. Your binary should be here
-10. Package your binary with Qt libraries to create self contained application `/usr/local/opt/qt/bin/macdeployqt rclone-browser.app -executable="rclone-browser.app/Contents/MacOS/rclone-browser" -qmldir=../src/`. Without this step binary won't work without Qt installed
+7.  `export LDFLAGS="-L/opt/homebrew/opt/qt@5/lib"; export CPPFLAGS="-I/opt/homebrew/opt/qt@5/include"`
+8.  Run `cmake .. -DCMAKE_PREFIX_PATH:PATH=/opt/homebrew/opt/qt@5` from build folder to create makefile
+9.  Run `make` from build folder to create binary
+10.  Go to yet another newly created build folder `cd build`. Your binary should be here
+11. Package your binary with Qt libraries to create self contained application `macdeployqt rclone-browser.app -executable="rclone-browser.app/Contents/MacOS/rclone-browser" -qmldir=../src/`. Without this step binary won't work without Qt installed
 
 ### Windows
 1.  Get [Visual Studio 2019][8] - you need "Desktop development with C++" module only
